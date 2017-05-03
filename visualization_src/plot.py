@@ -1,4 +1,4 @@
-
+# Parent of all plot classes
 class Plot:
 
     def __init__(self,figure,data):
@@ -8,6 +8,7 @@ class Plot:
         self.data = data
 
 
+# Parent of all plotpart classes
 class PlotPart:
 
     def __init__(self,label,color):
@@ -16,6 +17,7 @@ class PlotPart:
         self.color = color
 
 
+# Line plot consists of curves
 class Curve(PlotPart):
 
     def __init__(self, points, label, color):

@@ -4,7 +4,7 @@ from numpy import arange, array
 from plot import *
 from colormap import *
 
-
+# A coordinate class
 class Coordinates:
 
     def __init__(self,x,y):
@@ -18,9 +18,12 @@ class Coordinates:
 #       - data : dict
 #       - plotpairs : list of pairs of variables to be plotted
 #       - gridon : boolean indicating if grid is included or not
+
+# Transforms the values of points to Coordinates
+# Calculates good places for axis ticks
 class LinePlot(Plot):
 
-    def __init__(self,figure,data,plotpairs,gridon=True):
+    def __init__(self, figure ,data, plotpairs, gridon=True):
         super(LinePlot,self).__init__(figure,data)
         self.plotpairs = plotpairs
         self.curves = []
@@ -37,9 +40,9 @@ class LinePlot(Plot):
             self.add_curves()
 
     # transforms the numbers of original units to pixels (Coordinates)
-    # fits all points to figure width and height
+    # fits all points to figure width and height = plot area
     def calculate_coordinates(self):
-        min_x,min_y = inf, inf
+        min_x, min_y = inf, inf
         max_x, max_y = -inf, -inf
         for i in range(0,len(self.plotpairs)):
             temp_min_x = min(self.data[self.plotpairs[i][0]])
@@ -81,6 +84,8 @@ class LinePlot(Plot):
         self.y_ticks = (self.y_ticks - max_y) * (self.figure.height-20)/(min_y-max_y) + self.figure.margin_top + 10
         self.y_ticks = list(self.y_ticks)
 
+    # Creates good spacing for axis ticks
+    # the plots have 6-7 ticks on both axes
     def calculate_ticks(self,min_x,max_x):
         dif = (max_x - min_x) / 5
         pow10 = pow(10, floor(log10(dif)))
@@ -100,8 +105,8 @@ class LinePlot(Plot):
             ticks.append(max_x)
         return ticks
 
+    # Every variable pair has its own Curve object
     def add_curves(self):
-
         for i in range(0, len(self.coordinates)):
             label = self.plotpairs[i][1]
             curve = Curve(self.coordinates[i],label,self.colormap.get_next_color())

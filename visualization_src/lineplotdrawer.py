@@ -3,6 +3,7 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QLabel
 
+# Draw a line plot using helper classes from qtclasses.py
 class LinePlotDrawer(QWidget):
 
     def __init__(self,lineplot,parent=None):
@@ -51,12 +52,14 @@ class LinePlotDrawer(QWidget):
 
     def draw_axes(self):
         figure = self.plot.figure
-        # x-axis
+
+        # ---- x-axis ----
         Line(Coordinates(figure.margin_left,self.h-figure.margin_bottom),
              Coordinates(self.w-figure.margin_right,self.h-figure.margin_bottom),
              width = 1,
              parent = self)
 
+        # x axis ticks
         font = QFont()
         font.setPixelSize(15)
         for i in range(0,len(self.plot.x_ticks)):
@@ -69,12 +72,13 @@ class LinePlotDrawer(QWidget):
             lab.setFont(font)
             lab.move(self.plot.x_ticks[i]-10,self.h-figure.margin_bottom + 10)
 
-        # y-axis
+        # --- y-axis ---
         Line(Coordinates(figure.margin_left, self.h - figure.margin_bottom),
              Coordinates(figure.margin_left,figure.margin_top),
              width=1,
              parent=self)
 
+        # y axis ticks
         for i in range(0,len(self.plot.y_ticks)):
             start = Coordinates(figure.margin_left,self.plot.y_ticks[i])
             end = Coordinates(figure.margin_left - 10,self.plot.y_ticks[i])
@@ -86,12 +90,13 @@ class LinePlotDrawer(QWidget):
             lab.setAlignment(Qt.AlignRight)
             lab.move(figure.margin_left-50,self.plot.y_ticks[i]-10)
 
+    # draw the actual lines to the plot and add corresponding legend
     def draw_lines_legend(self):
         figure = self.plot.figure
-        # Draw plot
         legend_pos = Coordinates(figure.margin_left + figure.width + 10,figure.margin_top +10)
         font = QFont()
         font.setPixelSize(15)
+
         for curve in self.plot.curves:
             # Draw lines
             for i in range(1,len(curve.points)):
