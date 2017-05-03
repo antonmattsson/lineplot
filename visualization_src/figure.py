@@ -1,24 +1,22 @@
 
-class Figure():
+class Figure:
 
-    def __init__(self,title,
-                 width=500,
-                 height=500,
+    def __init__(self,
+                 title='plot',
+                 xlabel='x',
+                 ylabel='y',
+                 width=1000,
+                 height=700,
                  margin_top=50,
-                 margin_bottom=50,
-                 margin_left=50):
+                 margin_bottom=70,
+                 margin_left=90,
+                 margin_right = 200):
         self.title = title
+        self.xlabel = xlabel,
+        self.ylabel = ylabel,
         self.width = width
         self.height = height
         self.margin_top = margin_top
         self.margin_bottom = margin_bottom
         self.margin_left = margin_left
-
-    def set_margins(self,
-                 margin_top=50,
-                 margin_bottom=50,
-                 margin_left=50):
-        self.margin_top = margin_top
-        self.margin_bottom = margin_bottom
-        self.margin_left = margin_left
-
+        self.margin_right = margin_right

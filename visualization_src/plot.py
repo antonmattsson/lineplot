@@ -7,6 +7,7 @@ class Plot:
         self.parts = []
         self.data = data
 
+
 class PlotPart:
 
     def __init__(self,label,color):
@@ -19,4 +20,4 @@ class Curve(PlotPart):
 
     def __init__(self, points, label, color):
         self.points = points
-        super(Curve, self).__init__(label,color)
+        super().__init__(label,color)

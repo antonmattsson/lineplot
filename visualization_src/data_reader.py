@@ -9,7 +9,16 @@ class ReadingError(Exception):
         return repr(self.string)
 
 
-class DataReader():
+# Read data from .csv file
+# Values are converted to float if possible,
+# if not, left as strings
+# Input:
+#   - file path : string
+# Output:
+#   - data : dict
+#       key: column name from file header
+#       value: column values in a list
+class DataReader:
 
     def __init__(self, file):
         self.file = file
