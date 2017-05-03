@@ -23,9 +23,10 @@ class Coordinates:
 # Calculates good places for axis ticks
 class LinePlot(Plot):
 
-    def __init__(self, figure ,data, plotpairs, gridon=True):
+    def __init__(self, figure ,data, plotpairs, curve_labels = None, gridon=True):
         super(LinePlot,self).__init__(figure,data)
         self.plotpairs = plotpairs
+        self.curve_labels = curve_labels
         self.curves = []
         self.colormap = ColorMap(len(plotpairs))
         self.gridon = gridon
@@ -106,8 +107,12 @@ class LinePlot(Plot):
         return ticks
 
     # Every variable pair has its own Curve object
+    # Unless curve labels are specified, labels will be names of y variables
     def add_curves(self):
         for i in range(0, len(self.coordinates)):
-            label = self.plotpairs[i][1]
+            if self.curve_labels is not None:
+                label = self.curve_labels[i]
+            else:
+                label = self.plotpairs[i][1]
             curve = Curve(self.coordinates[i],label,self.colormap.get_next_color())
             self.curves.append(curve)

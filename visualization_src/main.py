@@ -84,6 +84,7 @@ class myapp(QWidget):
                 '1': [['time', 'rw1']],
                 '2': [['time', 'rw1'], ['time', 'rw2']],
                 '3': [['time', 'rw1'], ['time', 'rw2'], ['time', 'rw3']]}[walkers]
+            labels = None
 
 
 
@@ -94,9 +95,13 @@ class myapp(QWidget):
                 '1': [['x1','y1']],
                 '2': [['x1','y1'],['x2','y2']],
                 '3': [['x1','y1'],['x2','y2'],['x3','y3']]}[walkers]
+            labels = {
+                '1': [['x', 'rw1']],
+                '2': [['x', 'rw1'], ['x', 'rw2']],
+                '3': [['x', 'rw1'], ['x', 'rw2'], ['x', 'rw3']]}[walkers]
 
 
-        lplot = LinePlot(fig, data, pairs)
+        lplot = LinePlot(fig, data, pairs, labels)
 
 
 
