@@ -46,7 +46,7 @@ class Controls(QWidget):
 
 
 
-class myapp(QWidget):
+class MyApp(QWidget):
 
     def __init__(self):
         super().__init__()
@@ -96,9 +96,9 @@ class myapp(QWidget):
                 '2': [['x1','y1'],['x2','y2']],
                 '3': [['x1','y1'],['x2','y2'],['x3','y3']]}[walkers]
             labels = {
-                '1': [['x', 'rw1']],
-                '2': [['x', 'rw1'], ['x', 'rw2']],
-                '3': [['x', 'rw1'], ['x', 'rw2'], ['x', 'rw3']]}[walkers]
+                '1': ['rw1'],
+                '2': ['rw1','rw2'],
+                '3': ['rw1','rw2','rw3']}[walkers]
 
 
         lplot = LinePlot(fig, data, pairs, labels)
@@ -117,7 +117,7 @@ def main():
 
     app = QApplication(sys.argv)
 
-    m = myapp()
+    m = MyApp()
     sys.exit(app.exec_())
 
 

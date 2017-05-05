@@ -28,15 +28,14 @@ class LinePlot(Plot):
         self.plotpairs = plotpairs
         self.curve_labels = curve_labels
         self.curves = []
-        self.colormap = ColorMap(len(plotpairs))
         self.gridon = gridon
-        self.grid = None
         self.coordinates = None
         self.x_ticks = None
         self.y_ticks = None
         self.x_tick_labels = []
         self.y_tick_labels = []
         if len(plotpairs):
+            self.colormap = ColorMap(len(plotpairs))
             self.calculate_coordinates()
             self.add_curves()
 
@@ -71,14 +70,14 @@ class LinePlot(Plot):
                                                      y_coordinates[j])
 
         # Transfrom ticks into coordinates
-        xticks = self.calculate_ticks(min_x,max_x)
+        xticks = self.calculate_ticks(min_x,max_x,'x')
         for tick in xticks:
             self.x_tick_labels.append(str(tick))
         self.x_ticks = array(xticks)
         self.x_ticks = (self.x_ticks-min_x) * (self.figure.width-20)/(max_x-min_x) + self.figure.margin_left + 10
-        self.xticks = list(self.x_ticks)
+        self.x_ticks = list(self.x_ticks)
 
-        yticks = self.calculate_ticks(min_y, max_y)
+        yticks = self.calculate_ticks(min_y, max_y,'y')
         for tick in yticks:
             self.y_tick_labels.append(str(tick))
         self.y_ticks = array(yticks)
@@ -86,9 +85,10 @@ class LinePlot(Plot):
         self.y_ticks = list(self.y_ticks)
 
     # Creates good spacing for axis ticks
-    # the plots have 6-7 ticks on both axes
-    def calculate_ticks(self,min_x,max_x):
-        dif = (max_x - min_x) / 5
+    # the plots have 4-6 ticks on both axes
+    def calculate_ticks(self,min_, max_, axis):
+        n_ticks = 5
+        dif = (max_ - min_) / n_ticks
         pow10 = pow(10, floor(log10(dif)))
         if pow10 == 0:
             step = round(dif)
@@ -96,14 +96,20 @@ class LinePlot(Plot):
             step = pow10 * round(dif / pow10)
         else:
             step = pow10 * round(dif / pow10)
-        start = step * floor(min_x/step)
-        end = step * floor(max_x/step)
+        start = step * floor(min_/step)
+        end = step * floor(max_/step)
         ticks = list(arange(start, end, step))
         ticks.append(end)
-        if ticks[0] < min_x:
+
+        if axis == 'x':
+            scale = self.figure.width
+        if axis == 'y':
+            scale = self.figure.height
+
+        if ticks[0] < 10 * (min_ - max_) / (scale - 20) + min_:
             ticks.pop(0)
-        if ticks[-1] + step == max_x:
-            ticks.append(max_x)
+        if ticks[-1] + step <= 10 * (max_ - min_) / (scale - 20) + max_:
+            ticks.append(ticks[-1] + step)
         return ticks
 
     # Every variable pair has its own Curve object
@@ -114,5 +120,6 @@ class LinePlot(Plot):
                 label = self.curve_labels[i]
             else:
                 label = self.plotpairs[i][1]
+                print(label)
             curve = Curve(self.coordinates[i],label,self.colormap.get_next_color())
             self.curves.append(curve)

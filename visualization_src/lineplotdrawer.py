@@ -3,10 +3,11 @@ from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QLabel
 
+
 # Draw a line plot using helper classes from qtclasses.py
 class LinePlotDrawer(QWidget):
 
-    def __init__(self,lineplot,parent=None):
+    def __init__(self, lineplot, parent=None):
         super().__init__(parent)
         self.plot = lineplot
         self.h = None
@@ -99,6 +100,7 @@ class LinePlotDrawer(QWidget):
 
         for curve in self.plot.curves:
             # Draw lines
+
             for i in range(1,len(curve.points)):
                 Line(curve.points[i-1],curve.points[i],color = curve.color, parent = self)
 
@@ -108,6 +110,5 @@ class LinePlotDrawer(QWidget):
             lab = QLabel(curve.label,self)
             lab.setFont(font)
             lab.move(legend_pos.x+ 40,legend_pos.y-12)
-
             legend_pos = Coordinates(legend_pos.x,legend_pos.y+30)
 

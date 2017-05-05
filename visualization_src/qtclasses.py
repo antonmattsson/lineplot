@@ -5,24 +5,6 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import QWidget, QLabel
 
 
-class GridLine(QWidget):
-
-    def __init__(self,start,end,parent=None):
-        super().__init__(parent)
-        self.start = start
-        self.end = end
-        self.setGeometry(0,0, 1000,700)
-        self.show()
-
-    def paintEvent(self, event):
-        painter = QPainter(self)
-        painter.begin(self)
-        pen = QPen(Qt.lightGray)
-        painter.setPen(pen)
-        painter.drawLine(self.start.x,self.start.y,self.end.x,self.end.y)
-        painter.end()
-
-
 class Line(QWidget):
 
     def __init__(self, start, end, width=2, color=(0,0,0), parent=None):
@@ -53,7 +35,8 @@ class PlotBackGround(QWidget):
         self.setGeometry(x,y,w,h)
         self.show()
 
-
+# Taken from
+# http://stackoverflow.com/questions/3757246/pyqt-rotate-a-qlabel-so-that-its-positioned-diagonally-instead-of-horizontally
 class VerticalLabel(QLabel):
 
     def __init__(self, *args):
