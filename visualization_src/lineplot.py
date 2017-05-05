@@ -120,6 +120,5 @@ class LinePlot(Plot):
                 label = self.curve_labels[i]
             else:
                 label = self.plotpairs[i][1]
-                print(label)
             curve = Curve(self.coordinates[i],label,self.colormap.get_next_color())
             self.curves.append(curve)

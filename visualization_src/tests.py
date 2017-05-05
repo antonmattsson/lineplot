@@ -51,7 +51,7 @@ class TestLinePlot(unittest.TestCase):
         self.pairs.append(['x','y'])
         self.pairs.append(['x2', 'y2'])
         fig = Figure(margin_left=40, margin_top=40)
-        self.lplot = LinePlot(fig, self.data, self.pairs, 0)
+        self.lplot = LinePlot(fig, self.data, self.pairs)
 
     def test_coordinate_calculation(self):
 
